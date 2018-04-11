@@ -18,9 +18,12 @@ output_opt=options.Output
 time_opt=options.TimeLapse
 
 inp=np.genfromtxt(distances_opt, skip_header=16)
-times=inp[:,0]
 distances=inp[:,1]
-distances=distances[distances>=0.0]
+times = inp[distances>=0.0, 0]
+distances = distances[distances>=0.0]
+
+distances = distances[times%time_opt==0]
+times = times[times%time_opt==0]
 
 dist_act=0.0
 indexes=np.array([])
@@ -29,8 +32,8 @@ while dist_act <= distances[0]:
     indexes=np.append(indexes, np.where(temp==np.min(temp))[0][0])
     dist_act += delta_opt
 
-out_file=open(output_opt+".dat", "a")
-ndx_file=open(output_opt+".ndx", "a")
+out_file=open(output_opt+".dat", "w")
+ndx_file=open(output_opt+".ndx", "w")
 out_file.write("Time (ps) \t Ideal distance (nm) \t Closest frame \t Closest frame distance (nm) \t Frames new index\n")
 ndx_file.write("[ Frames ]" + "\n")
 for i in range(len(indexes)):
