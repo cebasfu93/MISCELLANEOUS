@@ -6,6 +6,7 @@ import re
 
 parser=OptionParser()
 parser.add_option("-n", "--np", action="store", type='string', dest="NanoParticle", default='NP.gro', help="Name of the NP's gro file.")
+parser.add_option("-x", "--metal", action="store", type='string', dest="Metal", default='AU', help="Atom name of the metallic core.")
 parser.add_option("-m", "--mem", action="store", type="string", dest="Membrane", default="MEM.gro", help="Name of the membrane's gro file")
 parser.add_option("-d", "--dist", action="store", type="float", dest="Distance", default="4.0", help="Distance between the center of coordinates of the NP and the bilayer's midplane")
 parser.add_option("-o", "--output", action="store", type="string", dest="OutName", default="NP-MEM.gro", help="Name of the output gro file")
@@ -13,6 +14,7 @@ parser.add_option("-e", "--embed", action="store", type="float", dest="Embed", d
 parser.add_option("-z", "--sizebox", action="store", type="float", dest="Zeta", default="5.0", help="Minimum distance between the solute and the box (in Z)")
 (options, args)= parser.parse_args()
 np_opt=options.NanoParticle
+metal_opt=options.Metal
 mem_opt=options.Membrane
 out_opt=options.OutName
 dist_opt=options.Distance
@@ -26,7 +28,7 @@ N_np=len(nano)
 N_mem=len(mem)
 N_tot=N_np+N_mem-6
 
-out_file=open(out_opt, "a")
+out_file=open(out_opt, "w")
 
 out_file.write(np_opt + "-" + mem_opt + "\n")
 out_file.write(str(N_tot) + "\n")
@@ -39,7 +41,7 @@ for i in range(2, N_np-1):
     x_np=np.append(x_np, float(nano[i][-48:-41]))
     y_np=np.append(y_np, float(nano[i][-40:-33]))
     z_np=np.append(z_np, float(nano[i][-32:-25]))
-    if "AU" in nano[i]:
+    if metal_opt in nano[i]:
         au[i-2]=True
 
 x_com_np=np.average(x_np[au])
