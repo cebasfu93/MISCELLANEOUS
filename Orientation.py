@@ -88,11 +88,12 @@ z_com_mem=np.average(z_mem)
 at=0
 for i in range(2, N_np-1):
     at+=1
-    out_file.write(nano[i][:-53].rjust(15))
+    out_file.write(nano[i][:-29].rjust(15))
+    #out_file.write(nano[i][:-53].rjust(15))
     out_file.write(str(at).rjust(5))
     out_file.write("{:.3f}".format(x_np[i-2]).rjust(8)+ "{:.3f}".format(y_np[i-2]).rjust(8)+ "{:.3f}".format(z_np[i-2]).rjust(8))
-    out_file.write(nano[i][-24:] + "\n")
-
+    out_file.write("\n")
+    #out_file.write(nano[i][-24:] + "\n")
 
 for i in range(2, N_mem-1):
     at+=1
