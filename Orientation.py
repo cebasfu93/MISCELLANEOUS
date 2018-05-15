@@ -38,9 +38,12 @@ y_np=np.array([])
 z_np=np.array([])
 au=np.zeros(N_np-3, dtype=bool)
 for i in range(2, N_np-1):
-    x_np=np.append(x_np, float(nano[i][-48:-41]))
-    y_np=np.append(y_np, float(nano[i][-40:-33]))
-    z_np=np.append(z_np, float(nano[i][-32:-25]))
+    x_np=np.append(x_np, float(nano[i][-24:-16]))
+    y_np=np.append(y_np, float(nano[i][-16:-8]))
+    z_np=np.append(z_np, float(nano[i][-8:]))
+    #x_np=np.append(x_np, float(nano[i][-48:-41]))
+    #y_np=np.append(y_np, float(nano[i][-40:-33]))
+    #z_np=np.append(z_np, float(nano[i][-32:-25]))
     if metal_opt in nano[i]:
         au[i-2]=True
 
